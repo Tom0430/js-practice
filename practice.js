@@ -427,8 +427,8 @@ const engineeringTeam = {
 };
 
 function* TeamIterator(team) {
-    yield team.lead;
     yield team.manager;
+    yield team.lead;
     yield team.engineer
 }
 
@@ -442,3 +442,45 @@ names;
 //  出力結果　
 //  3　　　この３はyeildの数
 //  ["太郎","花子","二郎"]　　
+
+
+// Promiseは必ずしもajaxとセットで使わないといけないものではない
+// それぞれ独立して使える
+// promiseには状態が３つ　unresolved, resolved, rejected
+
+promise = new Promise((resolve, reject) => {
+    reject();
+});
+
+promise;
+// Promise {<rejected>: undefined}
+// __proto__: Promise
+// [[PromiseStatus]]: "rejected"
+// [[PromiseValue]]: undefined
+
+
+
+promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        reject();
+    },3000)
+});
+
+promise
+    .then(() => {console.log('処理が完了しました。')})
+    .then(() => {console.log('ここも実行されるよ')})
+    .catch(() => { console.log('問題発生！') })
+
+
+url = 'https://jsonplaceholder.typicode.com/todos'
+
+// 欲しいデータを見られる記述
+fetch(url)
+    .then(responce => responce.json())
+    .then(data => console.log(data));
+
+// Responce自体(ステータスコードとか)が帰って来ちゃう記述
+fetch(url)
+    .catch(error => console.log('失敗！！！', error))
+
+// 結論、fetchにはエラーが起こった時の表示に欠点があるので、ajaxのリクエストにはaxiosだったり外部のライブラリを使ったほうがいい
