@@ -481,6 +481,6 @@ fetch(url)
 
 // Responce自体(ステータスコードとか)が帰って来ちゃう記述
 fetch(url)
-    .then(response => console.log('成功！！！', response))
+    .catch(error => console.log('失敗！！！', error))
 
 // 結論、fetchにはエラーが起こった時の表示に欠点があるので、ajaxのリクエストにはaxiosだったり外部のライブラリを使ったほうがいい
